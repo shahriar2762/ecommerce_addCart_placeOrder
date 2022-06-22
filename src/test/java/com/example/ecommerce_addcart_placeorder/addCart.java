@@ -6,12 +6,9 @@ import io.appium.java_client.TouchAction;
 //import org.openqa.selenium.By;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.touch.offset.PointOption;
-import org.openqa.selenium.By;
+import org.openqa.selenium.*;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
 //import org.openqa.selenium.WebElement;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -35,10 +32,14 @@ public class addCart {
     public void setup() throws MalformedURLException {
         DesiredCapabilities dc = new DesiredCapabilities();
 
-        dc.setCapability("platformVersion", "11.0");
+//        dc.setCapability("platformVersion", "11.0");
+        dc.setCapability("platformVersion", "6.0.1");
         dc.setCapability("platformName", "Android");
-        dc.setCapability("deviceName", "emulator-5554");
-        dc.setCapability("udid","emulator-5554");
+        dc.setCapability("deviceName", "ONE E1001");
+        dc.setCapability("udid","2a5d2cf8");
+
+//        dc.setCapability("deviceName", "emulator-5554");
+//        dc.setCapability("udid","emulator-5554");
         dc.setCapability("appPackage","com.nopstation.nopcommerce.nopstationcart");
         dc.setCapability("appActivity", "com.bs.ecommerce.main.SplashScreenActivity");
         dc.setCapability("noReset", "true");
@@ -77,8 +78,6 @@ public class addCart {
             driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().resourceId(\"com.nopstation.nopcommerce.nopstationcart:id/rvProductList\")).scrollForward(2)"));
 
 
-
-
             MobileElement nokia = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator(
                     "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Nokia Lumia 1020\"))"));
 
@@ -86,6 +85,47 @@ public class addCart {
             nokia.click();
 
             Thread.sleep(5000);
+
+            MobileElement size = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Size\"))"));
+
+            System.out.println(size.getText());
+            size.click();
+
+//            WebElement btmLayout = driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/bottomSheetLayout"));
+//            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/bottomSheetLayout")).click();
+
+
+            Thread.sleep(2000);
+//            driver.switchTo().activeElement();
+//            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/bottomSheetLayout")).click();
+//            btmLayout.click();
+
+//            System.out.printf(btmLayout.getText());
+//            action = new TouchActions(driver);
+//            action.singleTap(btmLayout);
+
+
+//            driver.findElement(By.("android.widget.RadioButton")).click();
+
+            Thread.sleep(2000);
+            driver.findElement(By.xpath("//android.widget.RadioButton[2]")).click();
+
+            Thread.sleep(2000);
+
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/tvDone")).click();
+
+            Thread.sleep(2000);
+
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnPlus")).click();
+
+            Thread.sleep(2000);
+
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnAddToCart")).click();
+
+            Thread.sleep(6000);
+
+
 
 
         } catch (InterruptedException e) {

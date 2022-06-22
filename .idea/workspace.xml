@@ -38,7 +38,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm"
+    "nodejs_package_manager_path": "npm",
+    "spring.configuration.checksum": "f8bf69a6b131b1f1c41376de9f18e039"
   }
 }]]></component>
   <component name="RunManager">
@@ -74,7 +75,8 @@
       <option name="presentableId" value="Default" />
       <updated>1655790057339</updated>
       <workItem from="1655790059004" duration="588000" />
-      <workItem from="1655790670691" duration="21388000" />
+      <workItem from="1655790670691" duration="22046000" />
+      <workItem from="1655886322566" duration="7532000" />
     </task>
     <servers />
   </component>
