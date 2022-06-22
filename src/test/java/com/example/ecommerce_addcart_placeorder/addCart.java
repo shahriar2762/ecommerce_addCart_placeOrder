@@ -28,7 +28,7 @@ public class addCart {
     TouchActions action ;
     WebDriverWait wait;
 
-    @BeforeTest
+    @BeforeSuite
     public void setup() throws MalformedURLException {
         DesiredCapabilities dc = new DesiredCapabilities();
 
@@ -42,13 +42,11 @@ public class addCart {
 //        dc.setCapability("udid","emulator-5554");
         dc.setCapability("appPackage","com.nopstation.nopcommerce.nopstationcart");
         dc.setCapability("appActivity", "com.bs.ecommerce.main.SplashScreenActivity");
-        dc.setCapability("noReset", "true");
-        dc.setCapability("fullReset","false");
 
 
         driver = new AndroidDriver(new URL("http://127.0.1.1:4723/wd/hub"),dc);
     }
-    @AfterTest
+    @AfterSuite
     public  void tearDown()
     {
         driver.quit();
@@ -59,23 +57,24 @@ public class addCart {
     public void addCart()  {
         try {
             Thread.sleep(5000);
+            wait = new WebDriverWait(driver, 50);
 
 //            driver.manage().timeouts().implicitlyWait(10000, TimeUnit.SECONDS);
 //        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//android.widget.ImageView[@index = 0]"))));
 
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnAccept")).click();
+
+            wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/bottom_nav_categories"))));
+
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/bottom_nav_categories")).click();
-//            category.tap();
 
-
-//            wait.until(ExpectedConditions.visibilityOf(driver.findElement( By.xpath("//android.widget.TextView[@text = Electronics]"))));
+//            wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//android.widget.TextView[@text = 'Electronics']"))));
             driver.findElement(By.xpath("//android.widget.TextView[@text = 'Electronics']")).click();
-//            electronics.click();
-
-
 
             Thread.sleep(5000);
 
-            driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().resourceId(\"com.nopstation.nopcommerce.nopstationcart:id/rvProductList\")).scrollForward(2)"));
+            driver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().resourceId(\"com.nopstation.nopcommerce.nopstationcart:id/rvProductList\")).scrollForward(2)"));
 
 
             MobileElement nokia = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator(
@@ -92,38 +91,54 @@ public class addCart {
             System.out.println(size.getText());
             size.click();
 
-//            WebElement btmLayout = driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/bottomSheetLayout"));
-//            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/bottomSheetLayout")).click();
+            Thread.sleep(10000);
 
+//            wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//android.widget.RadioButton[2]"))));
 
-            Thread.sleep(2000);
-//            driver.switchTo().activeElement();
-//            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/bottomSheetLayout")).click();
-//            btmLayout.click();
-
-//            System.out.printf(btmLayout.getText());
-//            action = new TouchActions(driver);
-//            action.singleTap(btmLayout);
-
-
-//            driver.findElement(By.("android.widget.RadioButton")).click();
-
-            Thread.sleep(2000);
             driver.findElement(By.xpath("//android.widget.RadioButton[2]")).click();
 
-            Thread.sleep(2000);
+//            wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/tvDone"))));
+
+            driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
 
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/tvDone")).click();
 
-            Thread.sleep(2000);
+            wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnPlus"))));
 
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnPlus")).click();
 
-            Thread.sleep(2000);
+
+            wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnAddToCart"))));
 
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnAddToCart")).click();
 
-            Thread.sleep(6000);
+            Thread.sleep(4000);
+
+
+
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    public void placeOrder()
+    {
+
+
+        try {
+//          CLick on the Cart Icon
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/menu_cart")).click();
+            Thread.sleep(2000);
+
+//          CLick on the checkout button.
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnCheckOut")).click();
+            Thread.sleep(2000);
+
+//          Checkout As Guest Button
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnGuestCheckout")).click();
+
+
 
 
 
