@@ -70,45 +70,27 @@ public class addCart {
             driver.findElement(By.xpath("//android.widget.TextView[@text = 'Electronics']")).click();
 //            electronics.click();
 
-//        WebElement
 
 
             Thread.sleep(5000);
 
-//            MobileElement list = (MobileElement) driver.findElementsById("com.nopstation.nopcommerce.nopstationcart:id/ivProductThumb");
-//
-           
-            driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\"Nokia Lumia 1020\").instance(0))").click();
-
-//            MobileElement listItem = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator(
-//                    "new UiScrollable(new UiSelector().scrollIntoView(new UiSelector().description(\"Nokia Lumia 1020\")))"));
-//
-//
-//            System.out.println(listItem.getLocation());
-//            listItem.click();
+            driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().resourceId(\"com.nopstation.nopcommerce.nopstationcart:id/rvProductList\")).scrollForward(2)"));
 
 
 
-            Thread.sleep(10000);
+
+            MobileElement nokia = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Nokia Lumia 1020\"))"));
+
+            System.out.println(nokia.getText());
+            nokia.click();
+
+            Thread.sleep(5000);
+
+
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
-//    private void scrollScreen()
-//    {
-//        Dimension dim = driver.manage().window().getSize();
-//        int height = dim.getHeight();
-//        int width = dim.getWidth();
-//
-//
-//        int startX = width;
-//        int endX = width;
-//        int startY =(int) (height* .40);
-//        int endY = (int) (height*.10);
-//
-//        action = new TouchActions(driver);
-//        action.longPress(PointOption(startX,startY)).moveToElement(PointOption.point(endX,endY)).release().perform();
-//
-//    }
 
 }
