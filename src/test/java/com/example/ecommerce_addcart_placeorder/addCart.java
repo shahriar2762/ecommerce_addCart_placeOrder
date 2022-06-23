@@ -80,7 +80,7 @@ public class addCart {
             MobileElement nokia = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator(
                     "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Nokia Lumia 1020\"))"));
 
-            System.out.println(nokia.getText());
+
             nokia.click();
 
             Thread.sleep(5000);
@@ -91,7 +91,7 @@ public class addCart {
             System.out.println(size.getText());
             size.click();
 
-            Thread.sleep(10000);
+            Thread.sleep(2000);
 
 //            wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//android.widget.RadioButton[2]"))));
 
@@ -125,6 +125,18 @@ public class addCart {
     public void placeOrder()
     {
 
+        csvRead csv = new csvRead();
+
+//        String firstName = csv.csvCell[0];
+//        String lastName = csv.csvCell[1];
+//        String email = csv.csvCell[2];
+//        String company = csv.csvCell[3];
+//        String city = csv.csvCell[4];
+//        String address1 = csv.csvCell[5];
+//        String address2 = csv.csvCell[6];
+//        String zip = csv.csvCell[7];
+//        String phnNo = csv.csvCell[8];
+//        String fax = csv.csvCell[9];
 
         try {
 //          CLick on the Cart Icon
@@ -138,8 +150,57 @@ public class addCart {
 //          Checkout As Guest Button
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnGuestCheckout")).click();
 
+//          Billing Address
 
 
+//          FirstName
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etFirstName")).sendKeys("firstName");
+
+//          LastName
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etLastName")).sendKeys("lastName");
+
+//          Email
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etEmail")).sendKeys("email");
+
+//          Country
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/countrySpinner")).click();
+
+//          Select Country
+//            driver.findElementById("android:id/text1").ind)
+
+//          Company
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCompanyName")).sendKeys("company");
+
+//          Scroll Forward
+            driver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
+
+//          City
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCity")).sendKeys("city");
+
+//          Street Address 1
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etStreetAddress")).sendKeys("address1");
+
+//          Street Address 2
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etStreetAddress2")).sendKeys("address2");
+
+//          Zip Code
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etZipCode")).sendKeys("zip");
+
+//          Phone Number
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etPhone")).sendKeys("phnNo");
+
+//          Scroll Forward
+            driver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
+
+//          fax
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etFax")).sendKeys("fax");
+
+//          Continue
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnContinue")).click();
+
+            Thread.sleep(5000);
 
 
 
