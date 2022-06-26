@@ -109,16 +109,24 @@ public class addCart {
 
         csvRead csv = new csvRead();
 
-//        String firstName = csv.csvCell[0];
-//        String lastName = csv.csvCell[1];
-//        String email = csv.csvCell[2];
-//        String company = csv.csvCell[3];
-//        String city = csv.csvCell[4];
-//        String address1 = csv.csvCell[5];
-//        String address2 = csv.csvCell[6];
-//        String zip = csv.csvCell[7];
-//        String phnNo = csv.csvCell[8];
-//        String fax = csv.csvCell[9];
+        String firstName = csv.csvCell[0];
+        String lastName = csv.csvCell[1];
+        String email = csv.csvCell[2];
+        String company = csv.csvCell[3];
+        String city = csv.csvCell[4];
+        String address1 = csv.csvCell[5];
+        String address2 = csv.csvCell[6];
+        String zip = csv.csvCell[7];
+        String phnNo = csv.csvCell[8];
+        String fax = csv.csvCell[9];
+        String quantityAssertion = csv.csvCell[10];
+        String sizeAssertion = csv.csvCell[11];
+        String shippingAssertion = csv.csvCell[12];
+        String paymentAsserion = csv.csvCell[13];
+        String sucessMessageAssertion = csv.csvCell[14];
+
+
+
 
         try {
 //          CLick on the Cart Icon
@@ -136,13 +144,13 @@ public class addCart {
 
 
 //          FirstName
-            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etFirstName")).sendKeys("firstName");
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etFirstName")).sendKeys(firstName);
 
 //          LastName
-            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etLastName")).sendKeys("lastName");
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etLastName")).sendKeys(lastName);
 
 //          Email
-            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etEmail")).sendKeys("test@test.com");
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etEmail")).sendKeys(email);
 
 //          Country
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/countrySpinner")).click();
@@ -159,30 +167,30 @@ public class addCart {
 
 
 //          Company
-            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCompanyName")).sendKeys("company");
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCompanyName")).sendKeys(company);
 
 //          City
-            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCity")).sendKeys("city");
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCity")).sendKeys(city);
 
 //          Scroll Forward
             driver.findElement(MobileBy.AndroidUIAutomator(
                     "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
 
 //          Street Address 1
-            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etStreetAddress")).sendKeys("address1");
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etStreetAddress")).sendKeys(address1);
 
 //          Street Address 2
-            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etStreetAddress2")).sendKeys("address2");
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etStreetAddress2")).sendKeys(address2);
 
 //          Zip Code
-            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etZipCode")).sendKeys("zip");
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etZipCode")).sendKeys(zip);
 
 //          Phone Number
-            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etPhone")).sendKeys("phnNo");
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etPhone")).sendKeys(phnNo);
 
 
 //          fax
-            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etFax")).sendKeys("fax");
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etFax")).sendKeys(fax);
 
 
 //          Continue
@@ -229,45 +237,37 @@ public class addCart {
 
             driver.findElement(MobileBy.AndroidUIAutomator(
                     "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Quantity: 2\"))"));
-            String expectedQuantity = "Quantity: 2";
+
             String actualQuantity= driver.findElement(By.xpath("//android.widget.TextView[@text = 'Quantity: 2']")).getText();
             System.out.println(actualQuantity);
-            Assert.assertEquals(actualQuantity,expectedQuantity, "Quantity is not matched.");
+            Assert.assertEquals(actualQuantity,quantityAssertion, "Quantity is not matched.");
 
 
 //          Assertion Size Large
-            String expectedSize = "Size: Large\n" +
-                    "Color: Red";
             String actualSize = driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/tvAttribute1")).getText();
             System.out.println(actualSize);
-            Assert.assertEquals(actualSize,expectedSize,"Size is not matched.");
+            Assert.assertTrue(actualSize.contains(sizeAssertion),"Size is not Large.");
 
 //          Assertion Next Day Air
-
-            String expectedShippingMethod = "Next Day Air";
             String actualShippingMethod = driver.findElement(By.xpath("//android.widget.TextView[@text = 'Next Day Air']")).getText();
             System.out.println(actualShippingMethod);
-            Assert.assertEquals(actualShippingMethod,expectedShippingMethod, "Shipping method is not Next day Air.");
+            Assert.assertEquals(actualShippingMethod,shippingAssertion, "Shipping method is not Next day Air.");
 
 //          Assertion Payment Method
             driver.findElement(MobileBy.AndroidUIAutomator(
                     "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Check / Money Order\"))"));
-
-            String expectedPaymentMethod = "Check / Money Order";
             String actualPaymentMethod = driver.findElement(By.xpath("//android.widget.TextView[@text = 'Check / Money Order']")).getText();
             System.out.println(actualPaymentMethod);
-            Assert.assertEquals(actualPaymentMethod,expectedPaymentMethod,"Payment method is not Check / Money Order");
+            Assert.assertEquals(actualPaymentMethod,shippingAssertion,"Payment method is not Check / Money Order");
 
 
 //          Click Continue
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/checkoutButton")).click();
-
             Thread.sleep(5000);
 
-            String expectedSuccessMessage = "Your order has been successfully processed!";
             String actualSuccessMessage = driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/md_text_message")).getText();
 
-            Assert.assertTrue(actualSuccessMessage.contains(expectedSuccessMessage),"Order is not placed");
+            Assert.assertTrue(actualSuccessMessage.contains(sucessMessageAssertion),"Order is not placed");
 
             Thread.sleep(2000);
 
