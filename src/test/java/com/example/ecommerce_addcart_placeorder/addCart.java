@@ -16,12 +16,15 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.*;
 //import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.ui.context.Theme;
+import org.testng.Assert;
 import org.testng.annotations.*;
 
 import javax.xml.bind.Element;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Text;
 
 public class addCart {
 
@@ -60,59 +63,37 @@ public class addCart {
             Thread.sleep(5000);
             wait = new WebDriverWait(driver, 50);
 
-//            driver.manage().timeouts().implicitlyWait(10000, TimeUnit.SECONDS);
-//        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//android.widget.ImageView[@index = 0]"))));
-
+//          Accept Terms
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnAccept")).click();
 
+//          Click Navigation and Select Electronics
             wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/bottom_nav_categories"))));
-
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/bottom_nav_categories")).click();
-
-//            wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//android.widget.TextView[@text = 'Electronics']"))));
             driver.findElement(By.xpath("//android.widget.TextView[@text = 'Electronics']")).click();
-
             Thread.sleep(5000);
 
+//          Scroll To find the Nokia Lumia 1020 and click on Nokia Lumia 1020
             driver.findElement(MobileBy.AndroidUIAutomator(
                     "new UiScrollable(new UiSelector().resourceId(\"com.nopstation.nopcommerce.nopstationcart:id/rvProductList\")).scrollForward(2)"));
 
-
-            MobileElement nokia = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator(
-                    "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Nokia Lumia 1020\"))"));
-
-
-            nokia.click();
-
+            driver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Nokia Lumia 1020\"))")).click();
             Thread.sleep(5000);
 
-            MobileElement size = (MobileElement) driver.findElement(MobileBy.AndroidUIAutomator(
-                    "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Size\"))"));
-
-            System.out.println(size.getText());
-            size.click();
-
+//          Find the Size and Select the size Large and select done
+            driver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Size\"))")).click();
             Thread.sleep(2000);
-
-//            wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//android.widget.RadioButton[2]"))));
-
             driver.findElement(By.xpath("//android.widget.RadioButton[2]")).click();
-
-//            wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/tvDone"))));
-
-            driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
-
+            Thread.sleep(3000);
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/tvDone")).click();
 
+
+//          Increase the quantity to 2 and click on add to cart.
             wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnPlus"))));
-
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnPlus")).click();
-
-
             wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnAddToCart"))));
-
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnAddToCart")).click();
-
             Thread.sleep(4000);
 
 
@@ -199,17 +180,15 @@ public class addCart {
 //          Phone Number
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etPhone")).sendKeys("phnNo");
 
-////          Scroll Forward
-//            driver.findElement(MobileBy.AndroidUIAutomator(
-//                    "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
 
 //          fax
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etFax")).sendKeys("fax");
 
+
 //          Continue
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnContinue")).click();
-
             Thread.sleep(3000);
+
 
 //          Shipping
             driver.findElement(By.xpath("//android.widget.RelativeLayout[3]")).click();
@@ -225,17 +204,80 @@ public class addCart {
             driver.findElement(MobileBy.AndroidUIAutomator(
                     "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Check / Money Order\"))"));
 
-//          Select Check/ Money order and then continue
 
+//          Select Check/ Money order and then continue
             driver.findElement(By.xpath("//android.widget.TextView[@text = 'Check / Money Order']")).click();
             driver.findElement(MobileBy.AndroidUIAutomator(
                     "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
-
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnContinue")).click();
-            Thread.sleep(4000);
+            Thread.sleep(5000);
+
 
 //          Payment Information Next
-            driver.findElement(By.xpath("android.widget.Button[0]")).click();
+            driver.findElement(By.xpath("//android.widget.Button[@text = 'Next']")).click();
+            Thread.sleep(2000);
+
+
+
+
+//          Assertions
+
+            driver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().resourceId(\"com.nopstation.nopcommerce.nopstationcart:id/allLayoutExceptButton\")).scrollForward()"));
+
+//          Assertion Quantity 2
+
+            driver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Quantity: 2\"))"));
+            String expectedQuantity = "Quantity: 2";
+            String actualQuantity= driver.findElement(By.xpath("//android.widget.TextView[@text = 'Quantity: 2']")).getText();
+            System.out.println(actualQuantity);
+            Assert.assertEquals(actualQuantity,expectedQuantity, "Quantity is not matched.");
+
+
+//          Assertion Size Large
+            String expectedSize = "Size: Large\n" +
+                    "Color: Red";
+            String actualSize = driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/tvAttribute1")).getText();
+            System.out.println(actualSize);
+            Assert.assertEquals(actualSize,expectedSize,"Size is not matched.");
+
+//          Assertion Next Day Air
+
+            String expectedShippingMethod = "Next Day Air";
+            String actualShippingMethod = driver.findElement(By.xpath("//android.widget.TextView[@text = 'Next Day Air']")).getText();
+            System.out.println(actualShippingMethod);
+            Assert.assertEquals(actualShippingMethod,expectedShippingMethod, "Shipping method is not Next day Air.");
+
+//          Assertion Payment Method
+            driver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Check / Money Order\"))"));
+
+            String expectedPaymentMethod = "Check / Money Order";
+            String actualPaymentMethod = driver.findElement(By.xpath("//android.widget.TextView[@text = 'Check / Money Order']")).getText();
+            System.out.println(actualPaymentMethod);
+            Assert.assertEquals(actualPaymentMethod,expectedPaymentMethod,"Payment method is not Check / Money Order");
+
+
+//          Click Continue
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/checkoutButton")).click();
+
+            Thread.sleep(5000);
+
+            String expectedSuccessMessage = "Your order has been successfully processed!";
+            String actualSuccessMessage = driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/md_text_message")).getText();
+
+            Assert.assertTrue(actualSuccessMessage.contains(expectedSuccessMessage),"Order is not placed");
+
+            Thread.sleep(2000);
+
+
+//         Go to Continue
+
+           driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/md_button_positive")).click();
+           Thread.sleep(2000);
+
+
 
 
 
