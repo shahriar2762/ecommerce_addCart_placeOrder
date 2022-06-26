@@ -1,5 +1,6 @@
 package com.example.ecommerce_addcart_placeorder;
 
+import com.sun.org.apache.xalan.internal.xsltc.dom.AdaptiveResultTreeImpl;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.*;
 import io.appium.java_client.TouchAction;
@@ -160,23 +161,31 @@ public class addCart {
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etLastName")).sendKeys("lastName");
 
 //          Email
-            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etEmail")).sendKeys("email");
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etEmail")).sendKeys("test@test.com");
 
 //          Country
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/countrySpinner")).click();
+            driver.findElement(By.xpath("//android.widget.TextView[2]")).click();
+            Thread.sleep(3000);
 
-//          Select Country
-//            driver.findElementById("android:id/text1").ind)
+//          Select State
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/stateSpinner")).click();
+            driver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"North Dakota\"))"));
+
+            driver.findElement(By.xpath("//android.widget.TextView[@text = 'North Dakota']")).click();
+            Thread.sleep(2000);
+
 
 //          Company
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCompanyName")).sendKeys("company");
 
+//          City
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCity")).sendKeys("city");
+
 //          Scroll Forward
             driver.findElement(MobileBy.AndroidUIAutomator(
                     "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
-
-//          City
-            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCity")).sendKeys("city");
 
 //          Street Address 1
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etStreetAddress")).sendKeys("address1");
@@ -190,9 +199,9 @@ public class addCart {
 //          Phone Number
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etPhone")).sendKeys("phnNo");
 
-//          Scroll Forward
-            driver.findElement(MobileBy.AndroidUIAutomator(
-                    "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
+////          Scroll Forward
+//            driver.findElement(MobileBy.AndroidUIAutomator(
+//                    "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
 
 //          fax
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etFax")).sendKeys("fax");
@@ -200,7 +209,33 @@ public class addCart {
 //          Continue
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnContinue")).click();
 
-            Thread.sleep(5000);
+            Thread.sleep(3000);
+
+//          Shipping
+            driver.findElement(By.xpath("//android.widget.RelativeLayout[3]")).click();
+//          Scroll Forward
+            driver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
+
+//          Continue
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnContinue")).click();
+            Thread.sleep(3000);
+
+//          Find Check / Money Order
+            driver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Check / Money Order\"))"));
+
+//          Select Check/ Money order and then continue
+
+            driver.findElement(By.xpath("//android.widget.TextView[@text = 'Check / Money Order']")).click();
+            driver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
+
+            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnContinue")).click();
+            Thread.sleep(4000);
+
+//          Payment Information Next
+            driver.findElement(By.xpath("android.widget.Button[0]")).click();
 
 
 
