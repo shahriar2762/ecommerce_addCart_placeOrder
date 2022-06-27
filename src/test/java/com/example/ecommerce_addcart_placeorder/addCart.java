@@ -38,14 +38,19 @@
 		public void setup() throws MalformedURLException, NullPointerException {
 			DesiredCapabilities dc = new DesiredCapabilities();
 
-//			dc.setCapability("platformVersion", "11.0");
-	        dc.setCapability("platformVersion", "6.0.1");
-			dc.setCapability("platformName", "Android");
-	        dc.setCapability("deviceName", "ONE E1001");
-	        dc.setCapability("udid","2a5d2cf8");
 
+//			Physical Device
+			dc.setCapability("platformVersion", "6.0.1");
+			dc.setCapability("deviceName", "ONE E1001");
+			dc.setCapability("udid","2a5d2cf8");
+
+
+//			Emulator
+//			dc.setCapability("platformVersion", "11.0");
 //			dc.setCapability("deviceName", "emulator-5554");
 //			dc.setCapability("udid","emulator-5554");
+
+			dc.setCapability("platformName", "Android");
 			dc.setCapability("appPackage","com.nopstation.nopcommerce.nopstationcart");
 			dc.setCapability("appActivity", "com.bs.ecommerce.main.SplashScreenActivity");
 
