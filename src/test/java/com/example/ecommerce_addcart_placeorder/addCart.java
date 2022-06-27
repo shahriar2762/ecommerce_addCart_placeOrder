@@ -1,5 +1,6 @@
 package com.example.ecommerce_addcart_placeorder;
 
+import com.opencsv.exceptions.CsvValidationException;
 import com.sun.org.apache.xalan.internal.xsltc.dom.AdaptiveResultTreeImpl;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.*;
@@ -7,6 +8,7 @@ import io.appium.java_client.TouchAction;
 //import org.openqa.selenium.By;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.touch.offset.PointOption;
+import javafx.beans.binding.When;
 import org.openqa.selenium.*;
 import io.appium.java_client.android.AndroidDriver;
 //import org.openqa.selenium.WebElement;
@@ -20,11 +22,11 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 import javax.xml.bind.Element;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Text;
 
 public class addCart {
 
@@ -33,17 +35,17 @@ public class addCart {
     WebDriverWait wait;
 
     @BeforeSuite
-    public void setup() throws MalformedURLException {
+    public void setup() throws MalformedURLException, NullPointerException {
         DesiredCapabilities dc = new DesiredCapabilities();
 
-//        dc.setCapability("platformVersion", "11.0");
-        dc.setCapability("platformVersion", "6.0.1");
+        dc.setCapability("platformVersion", "11.0");
+//        dc.setCapability("platformVersion", "6.0.1");
         dc.setCapability("platformName", "Android");
-        dc.setCapability("deviceName", "ONE E1001");
-        dc.setCapability("udid","2a5d2cf8");
+//        dc.setCapability("deviceName", "ONE E1001");
+//        dc.setCapability("udid","2a5d2cf8");
 
-//        dc.setCapability("deviceName", "emulator-5554");
-//        dc.setCapability("udid","emulator-5554");
+        dc.setCapability("deviceName", "emulator-5554");
+        dc.setCapability("udid","emulator-5554");
         dc.setCapability("appPackage","com.nopstation.nopcommerce.nopstationcart");
         dc.setCapability("appActivity", "com.bs.ecommerce.main.SplashScreenActivity");
 
@@ -104,34 +106,36 @@ public class addCart {
         }
     }
     @Test
-    public void placeOrder()
-    {
+    public void placeOrder() throws IOException, CsvValidationException, InterruptedException, NullPointerException {
 
-        csvRead csv = new csvRead();
 
-        String firstName = csv.csvCell[0];
-        String lastName = csv.csvCell[1];
-        String email = csv.csvCell[2];
-        String company = csv.csvCell[3];
-        String city = csv.csvCell[4];
-        String address1 = csv.csvCell[5];
-        String address2 = csv.csvCell[6];
-        String zip = csv.csvCell[7];
-        String phnNo = csv.csvCell[8];
-        String fax = csv.csvCell[9];
-        String quantityAssertion = csv.csvCell[10];
-        String sizeAssertion = csv.csvCell[11];
-        String shippingAssertion = csv.csvCell[12];
-        String paymentAsserion = csv.csvCell[13];
-        String sucessMessageAssertion = csv.csvCell[14];
+        csvRead data = new csvRead();
 
 
 
+        while ((data.csvCell = data.address_data.readNext())!= null ){
 
-        try {
+        String firstName = data.csvCell[0];
+        String lastName = data.csvCell[1];
+        String email = data.csvCell[2];
+        String company = data.csvCell[3];
+        String city = data.csvCell[4];
+        String address1 = data.csvCell[5];
+        String address2 = data.csvCell[6];
+        String zip = data.csvCell[7];
+        String phnNo = data.csvCell[8];
+        String fax = data.csvCell[9];
+        String quantityAssertion = data.csvCell[10];
+        String sizeAssertion = data.csvCell[11];
+        String shippingAssertion = data.csvCell[12];
+        String paymentAssertion = data.csvCell[13];
+        String successMessageAssertion = data.csvCell[14];
+
+
+
 //          CLick on the Cart Icon
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/menu_cart")).click();
-            Thread.sleep(2000);
+            Thread.sleep(3000);
 
 //          CLick on the checkout button.
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnCheckOut")).click();
@@ -143,6 +147,7 @@ public class addCart {
 //          Billing Address
 
 
+            Thread.sleep(2000);
 //          FirstName
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etFirstName")).sendKeys(firstName);
 
@@ -154,6 +159,7 @@ public class addCart {
 
 //          Country
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/countrySpinner")).click();
+            Thread.sleep(2000);
             driver.findElement(By.xpath("//android.widget.TextView[2]")).click();
             Thread.sleep(3000);
 
@@ -168,6 +174,11 @@ public class addCart {
 
 //          Company
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCompanyName")).sendKeys(company);
+
+            //          Scroll Forward
+            driver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
+
 
 //          City
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCity")).sendKeys(city);
@@ -258,16 +269,15 @@ public class addCart {
                     "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Check / Money Order\"))"));
             String actualPaymentMethod = driver.findElement(By.xpath("//android.widget.TextView[@text = 'Check / Money Order']")).getText();
             System.out.println(actualPaymentMethod);
-            Assert.assertEquals(actualPaymentMethod,shippingAssertion,"Payment method is not Check / Money Order");
+            Assert.assertEquals(actualPaymentMethod,paymentAssertion,"Payment method is not Check / Money Order");
 
 
 //          Click Continue
             driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/checkoutButton")).click();
-            Thread.sleep(5000);
+            Thread.sleep(7000);
 
             String actualSuccessMessage = driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/md_text_message")).getText();
-
-            Assert.assertTrue(actualSuccessMessage.contains(sucessMessageAssertion),"Order is not placed");
+            Assert.assertTrue(actualSuccessMessage.contains(successMessageAssertion),"Order is not placed");
 
             Thread.sleep(2000);
 
@@ -276,14 +286,8 @@ public class addCart {
 
            driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/md_button_positive")).click();
            Thread.sleep(2000);
-
-
-
-
-
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
+
+    }
 }

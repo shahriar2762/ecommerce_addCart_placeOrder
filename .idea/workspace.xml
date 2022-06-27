@@ -7,6 +7,7 @@
     <list default="true" id="006c602e-fd81-4ef3-909c-c661474d1235" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/example/ecommerce_addcart_placeorder/addCart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/ecommerce_addcart_placeorder/addCart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/ecommerce_addcart_placeorder/csvRead.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/ecommerce_addcart_placeorder/csvRead.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +81,8 @@
       <workItem from="1655905572716" duration="2787000" />
       <workItem from="1655965950279" duration="5078000" />
       <workItem from="1655994689725" duration="5176000" />
-      <workItem from="1656218730772" duration="15083000" />
+      <workItem from="1656218730772" duration="15217000" />
+      <workItem from="1656306847255" duration="7303000" />
     </task>
     <servers />
   </component>
@@ -97,5 +99,18 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint enabled="true" type="java-exception" />
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

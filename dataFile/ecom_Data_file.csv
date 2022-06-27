@@ -1,0 +1,2 @@
+firstName,lastName,email,company,city,address1,address2,zip,phnNo,fax,quantityAssertion,sizeAssertion,shippingAssertion,paymentAsserion,sucessMessageAssertion
+Test,Data,test@test.com,Test,Fargo,"Fargo, North Dakota",USA,1215,125456455,8566222,Quantity: 2,Large,Next Day Air,Check / Money Order,Your order has been successfully processed!
