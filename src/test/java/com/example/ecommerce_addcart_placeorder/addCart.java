@@ -65,10 +65,11 @@
 		}
 
 		@Test
-		public void addCart()  {
-			try {
-				Thread.sleep(5000);
+		public void addCart() throws InterruptedException {
+//				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
+//				Thread.sleep(5000);
 				wait = new WebDriverWait(driver, 50);
+				wait.until(ExpectedConditions.visibilityOfElementLocated((By.id("com.nopstation.nopcommerce.nopstationcart:id/btnAccept"))));
 
 	//          Accept Terms
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnAccept")).click();
@@ -77,38 +78,48 @@
 				wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/bottom_nav_categories"))));
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/bottom_nav_categories")).click();
 				driver.findElement(By.xpath("//android.widget.TextView[@text = 'Electronics']")).click();
+
+
 				Thread.sleep(5000);
+
 
 	//          Scroll To find the Nokia Lumia 1020 and click on Nokia Lumia 1020
 				driver.findElement(MobileBy.AndroidUIAutomator(
 						"new UiScrollable(new UiSelector().resourceId(\"com.nopstation.nopcommerce.nopstationcart:id/rvProductList\")).scrollForward(2)"));
 
+
+
 				driver.findElement(MobileBy.AndroidUIAutomator(
 						"new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Nokia Lumia 1020\"))")).click();
-				Thread.sleep(5000);
+				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
+//				Thread.sleep(5000);
 
 	//          Find the Size and Select the size Large and select done
 				driver.findElement(MobileBy.AndroidUIAutomator(
 						"new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"Size\"))")).click();
-				Thread.sleep(2000);
+//				Thread.sleep(2000);
+//				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.RadioButton[2]")));
 				driver.findElement(By.xpath("//android.widget.RadioButton[2]")).click();
-				Thread.sleep(3000);
-				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/tvDone")).click();
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.RadioButton[2]"))).isSelected();
+//				Thread.sleep(3000);
 
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.nopstation.nopcommerce.nopstationcart:id/tvDone")));
+				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/tvDone")).click();
+				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
 
 	//          Increase the quantity to 2 and click on add to cart.
 				wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnPlus"))));
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnPlus")).click();
 				wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnAddToCart"))));
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnAddToCart")).click();
-				Thread.sleep(4000);
+//				Thread.sleep(4000);
+				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
 
 
 
 
-			} catch (InterruptedException e) {
-				throw new RuntimeException(e);
-			}
+
 		}
 		@Test
 		public void placeOrder() throws IOException, CsvValidationException, InterruptedException, NullPointerException {
@@ -116,7 +127,7 @@
 
 			csvRead data = new csvRead();
 
-
+			wait = new WebDriverWait(driver, 50);
 
 			while ((data.csvCell = data.address_data.readNext())!= null ){
 
@@ -140,11 +151,15 @@
 
 	//          CLick on the Cart Icon
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/menu_cart")).click();
+//				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
 				Thread.sleep(3000);
 
 	//          CLick on the checkout button.
+
+//				wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnCheckOut"))));
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnCheckOut")).click();
-				Thread.sleep(2000);
+//				Thread.sleep(2000);
+				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
 
 	//          Checkout As Guest Button
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnGuestCheckout")).click();
@@ -152,8 +167,10 @@
 	//          Billing Address
 
 
-				Thread.sleep(2000);
+//				Thread.sleep(2000);
+				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
 	//          FirstName
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.nopstation.nopcommerce.nopstationcart:id/etFirstName")));
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etFirstName")).sendKeys(firstName);
 
 	//          LastName
@@ -164,9 +181,13 @@
 
 	//          Country
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/countrySpinner")).click();
-				Thread.sleep(2000);
+//				Thread.sleep(2000);
+				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.TextView[2]")));
 				driver.findElement(By.xpath("//android.widget.TextView[2]")).click();
-				Thread.sleep(3000);
+//				Thread.sleep(3000);
+//				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.nopstation.nopcommerce.nopstationcart:id/stateSpinner")));
 
 	//          Select State
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/stateSpinner")).click();
@@ -174,18 +195,25 @@
 						"new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"North Dakota\"))"));
 
 				driver.findElement(By.xpath("//android.widget.TextView[@text = 'North Dakota']")).click();
-				Thread.sleep(2000);
+//				Thread.sleep(2000);
+				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
 
 
 	//          Company
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCompanyName")).sendKeys(company);
 
+//				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCity")).sendKeys(city);
+
 				//          Scroll Forward
+//				driver.findElement(MobileBy.AndroidUIAutomator(
+//						"new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
+
 				driver.findElement(MobileBy.AndroidUIAutomator(
-						"new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
+						"new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().text(\"City\"))"));
 
 
-	//          City
+
+				//          City
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/etCity")).sendKeys(city);
 
 	//          Scroll Forward
@@ -211,10 +239,12 @@
 
 	//          Continue
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnContinue")).click();
-				Thread.sleep(3000);
+//				Thread.sleep(3000);
+				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
 
 
 	//          Shipping
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.RelativeLayout[3]")));
 				driver.findElement(By.xpath("//android.widget.RelativeLayout[3]")).click();
 	//          Scroll Forward
 				driver.findElement(MobileBy.AndroidUIAutomator(
@@ -222,7 +252,8 @@
 
 	//          Continue
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnContinue")).click();
-				Thread.sleep(3000);
+//				Thread.sleep(3000);
+				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
 
 	//          Find Check / Money Order
 				driver.findElement(MobileBy.AndroidUIAutomator(
@@ -234,12 +265,14 @@
 				driver.findElement(MobileBy.AndroidUIAutomator(
 						"new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/btnContinue")).click();
-				Thread.sleep(5000);
+//				Thread.sleep(5000);
 
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//android.widget.Button[@text = 'Next']")));
 
 	//          Payment Information Next
 				driver.findElement(By.xpath("//android.widget.Button[@text = 'Next']")).click();
-				Thread.sleep(2000);
+//				Thread.sleep(2000);
+				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
 
 
 
@@ -278,19 +311,24 @@
 
 
 	//          Click Continue
+//				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/checkoutButton")).click();
 				driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/checkoutButton")).click();
-				Thread.sleep(7000);
+//				Thread.sleep(7000);
+				driver.manage().timeouts().implicitlyWait(6000,TimeUnit.MICROSECONDS);
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.nopstation.nopcommerce.nopstationcart:id/md_text_message")));
 
 				String actualSuccessMessage = driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/md_text_message")).getText();
 				Assert.assertTrue(actualSuccessMessage.contains(successMessageAssertion),"Order is not placed");
 
-				Thread.sleep(2000);
+//				Thread.sleep(2000);
+				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
 
 
 	//         Go to Continue
 
 			   driver.findElement(By.id("com.nopstation.nopcommerce.nopstationcart:id/md_button_positive")).click();
-			   Thread.sleep(2000);
+//			   Thread.sleep(2000);
+				driver.manage().timeouts().implicitlyWait(5000,TimeUnit.MICROSECONDS);
 		}
 
 
